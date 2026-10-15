@@ -1,0 +1,43 @@
+title: Privileged Entra ID Role Assigned Directly Outside Of PIM
+id: b2d47fab-562e-4fc4-8542-f8330eaee244
+status: experimental
+description: |
+    Detects a user being added directly to a highly privileged Microsoft Entra ID directory role by
+    the Core Directory service, i.e. a standing (permanent active) assignment made outside of
+    Privileged Identity Management (PIM). In a tenant governed by PIM, privileged access is expected
+    to be eligible and time-bound; a direct permanent assignment to a role such as Global
+    Administrator either bypasses that governance or is an attacker granting themselves durable
+    privilege. PIM activations are logged by the "PIM" service and are intentionally excluded here so
+    the rule fires only on the non-PIM path.
+references:
+    - https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-audit-activities
+    - https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure
+    - https://attack.mitre.org/techniques/T1098/003/
+author: Alex Adewoyin
+date: 2026-10-14
+tags:
+    - attack.persistence
+    - attack.privilege-escalation
+    - attack.t1098.003
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        LoggedByService: 'Core Directory'
+        Category: 'RoleManagement'
+        OperationName: 'Add member to role'
+    selection_privileged_role:
+        TargetResources|contains:
+            - 'Global Administrator'
+            - 'Privileged Role Administrator'
+            - 'Privileged Authentication Administrator'
+            - 'Security Administrator'
+            - 'User Administrator'
+            - 'Application Administrator'
+            - 'Cloud Application Administrator'
+    condition: selection and selection_privileged_role
+falsepositives:
+    - Approved break-glass or administrative provisioning that is deliberately permanent rather than
+      PIM-eligible - allow-list the known break-glass accounts and reconcile against change records.
+level: high

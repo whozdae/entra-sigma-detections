@@ -1,0 +1,35 @@
+title: New Federated Domain Configured In Entra ID
+id: e7f4d398-c68f-48f8-a906-b4d30100f6c7
+status: experimental
+description: |
+    Detects a domain being switched to federated authentication, or its federation settings being
+    changed, in Microsoft Entra ID. An attacker with sufficient directory privilege can federate a
+    domain to an identity provider they control (or push attacker-controlled token-signing settings),
+    which lets them forge SAML tokens and sign in as any user without a password or MFA - the
+    "Golden SAML" / domain-trust-modification technique used in intrusions such as SolarWinds.
+    Federation changes are rare and high-impact, so each one warrants review.
+references:
+    - https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-audit-activities
+    - https://attack.mitre.org/techniques/T1484/002/
+    - https://www.cisa.gov/news-events/alerts/2021/01/08/detecting-post-compromise-threat-activity-microsoft-cloud-environments
+author: Alex Adewoyin
+date: 2026-10-14
+tags:
+    - attack.defense-evasion
+    - attack.privilege-escalation
+    - attack.persistence
+    - attack.t1484.002
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        Category: 'DirectoryManagement'
+        OperationName:
+            - 'Set domain authentication'
+            - 'Set federation settings on domain'
+    condition: selection
+falsepositives:
+    - Planned migration to or from Active Directory Federation Services or a third-party identity
+      provider - confirm against change-management records and the expected administrator.
+level: high

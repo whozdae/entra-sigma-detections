@@ -1,0 +1,23 @@
+[
+  {
+    "_comment": "PIM activation of Global Admin - logged by PIM, so the rule must stay silent.",
+    "LoggedByService": "PIM",
+    "Category": "RoleManagement",
+    "OperationName": "Add member to role completed (PIM activation)",
+    "TargetResources": "Global Administrator"
+  },
+  {
+    "_comment": "Direct assignment but to a non-privileged role - not in the watch list.",
+    "LoggedByService": "Core Directory",
+    "Category": "RoleManagement",
+    "OperationName": "Add member to role",
+    "TargetResources": "Message Center Reader"
+  },
+  {
+    "_comment": "Member removed from a privileged role - different operation.",
+    "LoggedByService": "Core Directory",
+    "Category": "RoleManagement",
+    "OperationName": "Remove member from role",
+    "TargetResources": "Global Administrator"
+  }
+]

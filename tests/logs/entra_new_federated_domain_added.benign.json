@@ -1,0 +1,16 @@
+[
+  {
+    "_comment": "Unverified domain added - routine, not a federation change.",
+    "Category": "DirectoryManagement",
+    "OperationName": "Add unverified domain",
+    "LoggedByService": "Core Directory",
+    "TargetResources": "newbrand.com"
+  },
+  {
+    "_comment": "Domain ownership verified - different operation.",
+    "Category": "DirectoryManagement",
+    "OperationName": "Verify domain",
+    "LoggedByService": "Core Directory",
+    "TargetResources": "newbrand.com"
+  }
+]

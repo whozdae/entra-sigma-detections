@@ -1,0 +1,24 @@
+[
+  {
+    "_comment": "Ordinary interactive browser sign-in - not device code.",
+    "AuthenticationProtocol": "none",
+    "ResultType": 0,
+    "UserPrincipalName": "j.doe@contoso.com",
+    "AppDisplayName": "Office365 Shell WCSS-Client",
+    "userAgent": "Mozilla/5.0"
+  },
+  {
+    "_comment": "FAILED device code attempt - success gate (ResultType 0) must suppress this.",
+    "AuthenticationProtocol": "deviceCode",
+    "ResultType": 50126,
+    "UserPrincipalName": "j.doe@contoso.com",
+    "AppDisplayName": "Microsoft Authentication Broker"
+  },
+  {
+    "_comment": "Password sign-in that succeeded - no device code involved.",
+    "AuthenticationProtocol": "ropc",
+    "ResultType": 0,
+    "UserPrincipalName": "svc.sync@contoso.com",
+    "AppDisplayName": "Azure AD Connect"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "_comment": "Permanent Global Admin granted directly by Core Directory (not PIM).",
+    "LoggedByService": "Core Directory",
+    "Category": "RoleManagement",
+    "OperationName": "Add member to role",
+    "TargetResources": "Global Administrator",
+    "InitiatedBy": "attacker@contoso.com"
+  },
+  {
+    "_comment": "Privileged role name arrives inside a list-valued TargetResources.",
+    "LoggedByService": "Core Directory",
+    "Category": "RoleManagement",
+    "OperationName": "Add member to role",
+    "TargetResources": ["new.hire@contoso.com", "Privileged Role Administrator"]
+  }
+]

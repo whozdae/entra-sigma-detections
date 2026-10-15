@@ -1,0 +1,19 @@
+[
+  {
+    "_comment": "Device code phishing: victim completed deviceCode flow, attacker captures tokens.",
+    "AuthenticationProtocol": "deviceCode",
+    "ResultType": 0,
+    "UserPrincipalName": "j.doe@contoso.com",
+    "AppDisplayName": "Microsoft Authentication Broker",
+    "IPAddress": "198.51.100.23",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+  },
+  {
+    "_comment": "Same technique surfaced via the newer OriginalTransferMethod field.",
+    "OriginalTransferMethod": "deviceCodeFlow",
+    "ResultType": 0,
+    "UserPrincipalName": "a.admin@contoso.com",
+    "AppDisplayName": "Microsoft Office",
+    "IPAddress": "203.0.113.77"
+  }
+]

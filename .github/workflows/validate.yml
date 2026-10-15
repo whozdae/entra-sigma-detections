@@ -1,0 +1,30 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint rule formatting (yamllint)
+        run: >
+          yamllint -d "{extends: default, rules: {line-length: {max: 140},
+          document-start: disable, truthy: {check-keys: false},
+          comments: {min-spaces-from-content: 1}}}" rules/
+
+      - name: Validate rules (pySigma — structure, conditions, ATT&CK tags)
+        run: sigma check rules/
+
+      - name: Detection unit tests (fires on malicious, silent on benign)
+        run: pytest -q

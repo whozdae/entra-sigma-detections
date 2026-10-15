@@ -1,0 +1,39 @@
+title: Entra ID Sign-In Using Device Code Authentication Flow
+id: 06d4976a-7132-460c-911f-7ce4b73828c0
+status: experimental
+description: |
+    Detects successful interactive sign-ins to Microsoft Entra ID that completed through the OAuth 2.0
+    device authorization grant (device code flow). The flow is designed for input-constrained devices,
+    but is heavily abused in phishing campaigns (e.g. Storm-2372) because the victim authenticates on a
+    genuine Microsoft page while the attacker, who initiated the flow, silently captures the resulting
+    access and refresh tokens. A device code sign-in originating from a normal user endpoint with a
+    browser is almost always malicious. Baseline the apps and users that legitimately use this flow in
+    your tenant, then alert on everything else.
+references:
+    - https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-in-log-activity-details
+    - https://www.microsoft.com/en-us/security/blog/2025/02/13/storm-2372-conducts-device-code-phishing-campaign-targeting-critical-sectors/
+    - https://attack.mitre.org/techniques/T1078/004/
+author: Alex Adewoyin
+date: 2026-10-14
+tags:
+    - attack.initial-access
+    - attack.credential-access
+    - attack.t1078.004
+    - attack.t1566
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection_protocol:
+        AuthenticationProtocol: 'deviceCode'
+    selection_transfer:
+        OriginalTransferMethod: 'deviceCodeFlow'
+    selection_success:
+        ResultType: 0
+    condition: (selection_protocol or selection_transfer) and selection_success
+falsepositives:
+    - Legitimate sign-ins from genuinely input-constrained devices such as smart TVs, conference-room
+      hardware, IoT, or headless hosts running CLI/PowerShell authentication.
+    - Service desk or developer workflows that intentionally use device code flow - baseline the
+      application IDs and users that use it, then allow-list them.
+level: high

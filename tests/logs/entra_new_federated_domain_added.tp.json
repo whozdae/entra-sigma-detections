@@ -1,0 +1,16 @@
+[
+  {
+    "_comment": "Domain switched to federated authentication.",
+    "Category": "DirectoryManagement",
+    "OperationName": "Set domain authentication",
+    "LoggedByService": "Core Directory",
+    "TargetResources": "contoso.com"
+  },
+  {
+    "_comment": "Federation signing settings changed on an existing domain.",
+    "Category": "DirectoryManagement",
+    "OperationName": "Set federation settings on domain",
+    "LoggedByService": "Core Directory",
+    "TargetResources": "contoso.com"
+  }
+]
